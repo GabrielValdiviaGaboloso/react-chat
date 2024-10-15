@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
-import './App.css'; // Archivo de estilos separado
+import './App.css'; // Asegúrate de que el archivo CSS esté importado
 
 // Conectar con el servidor Socket.IO
 const socket = io('https://express-chat-26up.onrender.com', {
@@ -10,7 +10,9 @@ const socket = io('https://express-chat-26up.onrender.com', {
 function App() {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
+  const endOfMessagesRef = useRef(null); // Referencia para el final de la caja de mensajes
 
+  // Escuchar mensajes del servidor cuando se conecta
   useEffect(() => {
     socket.on('connect', () => {
       console.log('Conectado al servidor de Socket.IO');
@@ -33,29 +35,36 @@ function App() {
   const sendMessage = (e) => {
     e.preventDefault();
     if (message.trim()) {
-      socket.emit('chat message', message); 
-      setMessage('');
+      socket.emit('chat message', message); // Emitir mensaje al servidor
+      setMessage(''); // Limpiar el campo de entrada
     }
   };
 
+  useEffect(() => {
+    endOfMessagesRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
+
   return (
     <div className="app">
-      <div className="chat-container">
-        <h1>Chat en tiempo real</h1>
+      
 
+      <div className="chat-container">
+      <h1>Chat en tiempo real</h1>
         <div className="chat-box">
           {messages.map((msg, index) => (
             <p key={index} className="message">{msg}</p>
           ))}
+          {/* Elemento para el desplazamiento */}
+          <div ref={endOfMessagesRef} />
         </div>
 
-        <form onSubmit={sendMessage} className="chat-form">
+        <form className="chat-form" onSubmit={sendMessage}>
           <input
             type="text"
+            className="chat-input"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Escribe tu mensaje..."
-            className="chat-input"
           />
           <button type="submit" className="chat-button">Enviar</button>
         </form>

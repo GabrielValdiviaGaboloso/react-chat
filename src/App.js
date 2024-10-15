@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 
 // Conectar con el servidor Socket.IO
-const socket = io('http://localhost:3000'); // Asegúrate de que esto esté apuntando al servidor backend
+const socket = io('https://express-chat-26up.onrender.com'); // Asegúrate de que esto esté apuntando al servidor backend
 
 function App() {
   const [message, setMessage] = useState('');

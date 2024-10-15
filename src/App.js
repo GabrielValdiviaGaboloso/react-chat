@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 
 // Conectar con el servidor Socket.IO
-const socket = io('https://express-chat-26up.onrender.com'); // Asegúrate de que esto esté apuntando al servidor backend
+const socket = io('https://express-chat-26up.onrender.com', {
+  transports: ['websocket'], // Asegura que se use WebSocket directamente
+});
 
 function App() {
   const [message, setMessage] = useState('');
@@ -10,12 +12,25 @@ function App() {
 
   // Escuchar mensajes del servidor cuando se conecta
   useEffect(() => {
+    // Conexión al servidor Socket.IO
+    socket.on('connect', () => {
+      console.log('Conectado al servidor de Socket.IO');
+    });
+
+    // Recibir mensaje desde el servidor
     socket.on('chat message', (msg) => {
       setMessages((prevMessages) => [...prevMessages, msg]);
     });
 
+    // Manejo de errores de conexión
+    socket.on('connect_error', (err) => {
+      console.error('Error de conexión:', err);
+    });
+
+    // Desconectar el socket al desmontar el componente
     return () => {
       socket.off('chat message');
+      socket.disconnect();
     };
   }, []);
 

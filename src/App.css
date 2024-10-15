@@ -77,8 +77,14 @@ h1 {
   }
 
   .chat-box {
-    max-height: 200px; /* Altura menor en móviles */
+    max-height: 300px;
+    overflow-y: auto; /* Permitir el desplazamiento */
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #e9e9e9;
+    border-radius: 5px;
   }
+  
 
   .chat-form {
     flex-direction: column; /* Cambiar a columna en móviles */

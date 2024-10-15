@@ -1,0 +1,8 @@
+[build]
+  command = "npm run build"  # Comando para construir la aplicación
+  publish = "build"          # Carpeta a desplegar (la carpeta `build` que React genera)
+
+[[redirects]]
+  from = "/*"                # Redirecciona todas las rutas al index.html
+  to = "/index.html"
+  status = 200

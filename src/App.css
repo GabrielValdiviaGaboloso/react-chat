@@ -17,7 +17,8 @@ body {
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 400px;
+  width: 100%;
+  max-width: 400px; /* Máximo ancho para mantenerlo compacto */
 }
 
 h1 {
@@ -67,4 +68,28 @@ h1 {
 
 .chat-button:hover {
   background-color: #45a049;
+}
+
+/* Estilos responsivos */
+@media (max-width: 600px) {
+  .chat-container {
+    padding: 15px; /* Menos padding en móviles */
+  }
+
+  .chat-box {
+    max-height: 200px; /* Altura menor en móviles */
+  }
+
+  .chat-form {
+    flex-direction: column; /* Cambiar a columna en móviles */
+  }
+
+  .chat-input {
+    margin-right: 0; /* Eliminar margen en móvil */
+    margin-bottom: 10px; /* Agregar margen inferior */
+  }
+
+  .chat-button {
+    width: 100%; /* Botón de ancho completo en móviles */
+  }
 }

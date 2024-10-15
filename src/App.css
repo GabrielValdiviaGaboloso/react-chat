@@ -27,12 +27,14 @@ h1 {
 }
 
 .chat-box {
-  max-height: 300px;
+  max-height: 300px; /* Altura máxima para permitir el desplazamiento */
   overflow-y: auto; /* Permitir el desplazamiento */
   margin-bottom: 15px;
   padding: 10px;
   background-color: #e9e9e9;
   border-radius: 5px;
+  display: flex;
+  flex-direction: column; /* Asegura que los mensajes se apilen verticalmente */
 }
 
 .message {
@@ -78,11 +80,6 @@ h1 {
 
   .chat-box {
     max-height: 200px; /* Altura menor en móviles */
-    overflow-y: auto; /* Permitir el desplazamiento */
-  margin-bottom: 15px;
-  padding: 10px;
-  background-color: #e9e9e9;
-  border-radius: 5px;
   }
 
   .chat-form {
